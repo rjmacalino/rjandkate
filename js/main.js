@@ -30,9 +30,21 @@ window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
 // ===== Countdown =====
+// Before the wedding it counts down to the day; afterwards, to the next anniversary
 const cd = id => document.getElementById(id);
+const ordinal = n => n + (['th', 'st', 'nd', 'rd'][(n % 100 - 20) % 10] || ['th', 'st', 'nd', 'rd'][n % 100] || 'th');
+function nextTarget(now) {
+  if (now < WEDDING_DATE) return { date: WEDDING_DATE, years: 0 };
+  const date = new Date(WEDDING_DATE);
+  let years = 0;
+  while (date <= now) { years++; date.setUTCFullYear(WEDDING_DATE.getUTCFullYear() + years); }
+  return { date, years };
+}
 function tick() {
-  const diff = Math.max(0, WEDDING_DATE - new Date());
+  const now = new Date();
+  const { date, years } = nextTarget(now);
+  cd('cdLabel').textContent = years ? 'until our ' + ordinal(years) + ' anniversary' : '';
+  const diff = Math.max(0, date - now);
   cd('cd-days').textContent = Math.floor(diff / 864e5);
   cd('cd-hours').textContent = Math.floor(diff / 36e5) % 24;
   cd('cd-mins').textContent = Math.floor(diff / 6e4) % 60;
