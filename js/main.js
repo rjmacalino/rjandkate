@@ -177,6 +177,11 @@ const note = document.getElementById('rsvpNote');
 form.addEventListener('submit', async e => {
   e.preventDefault();
   const d = Object.fromEntries(new FormData(form));
+  // Don't pretend to accept RSVPs until the Google Form is connected
+  if (GOOGLE_FORM.action.includes('EDIT_')) {
+    note.textContent = 'Online RSVP is opening soon. Please check back in a few days.';
+    return;
+  }
   const body = new URLSearchParams();
   for (const key in GOOGLE_FORM.fields) body.append(GOOGLE_FORM.fields[key], d[key] || '');
   const btn = form.querySelector('button[type=submit]');
