@@ -50,7 +50,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 // ===== Hero slideshow =====
 // Phones get portrait photos, wider screens get landscape ones
 const HERO_PORTRAIT = ['apr08757.jpg', '_aap7727.jpg', 'apr07537.jpg', 'apr08513.jpg', '_aap7740.jpg', '_aap7505.jpg', 'apr07883.jpg'];
-const HERO_LANDSCAPE = ['apr08065.jpg', 'apr07249.jpg', 'apr08368.jpg', 'apr08086.jpg', '_aap7557.jpg'];
+const HERO_LANDSCAPE = ['_aap7466.jpg', 'apr07249.jpg', 'apr07208.jpg', 'apr07707.jpg', 'apr07751.jpg', 'apr07179.jpg', 'apr08831.jpg'];
 const heroBox = document.getElementById('heroSlides');
 const portraitMq = window.matchMedia('(max-aspect-ratio: 1/1)');
 let heroTimer, heroIdx = 0;
