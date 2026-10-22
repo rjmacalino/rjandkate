@@ -1,5 +1,5 @@
 // ===== Settings =====
-const WEDDING_DATE = new Date('2026-12-26T14:00:00+08:00'); // [EDIT: ceremony time]
+const WEDDING_DATE = new Date('2026-12-26T14:00:00+08:00'); // ceremony, 2:00 PM PH time
 // RSVP goes to a Google Form. See README.md for how to get these values.
 const GOOGLE_FORM = {
   action: 'https://docs.google.com/forms/d/e/EDIT_FORM_ID/formResponse',
