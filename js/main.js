@@ -1,15 +1,5 @@
 // ===== Settings =====
 const WEDDING_DATE = new Date('2026-12-26T14:00:00+08:00'); // ceremony, 2:00 PM PH time
-// RSVP goes to a Google Form. See README.md for how to get these values.
-const GOOGLE_FORM = {
-  action: 'https://docs.google.com/forms/d/e/EDIT_FORM_ID/formResponse',
-  fields: {
-    name: 'entry.EDIT_NAME_ID',
-    attending: 'entry.EDIT_ATTENDING_ID',
-    guests: 'entry.EDIT_GUESTS_ID',
-    message: 'entry.EDIT_MESSAGE_ID'
-  }
-};
 
 const PHOTOS = ['_aap7466.jpg','_aap7484.jpg','_aap7505.jpg','_aap7514.jpg','_aap7516.jpg','_aap7523.jpg','apr07179.jpg','apr07191.jpg','apr07208.jpg','apr07249.jpg','apr07280.jpg','apr07329.jpg','apr07344.jpg','apr07348.jpg','apr07356.jpg','apr07377.jpg','apr07403.jpg','apr07407.jpg','apr07424.jpg','apr07437.jpg','apr07456.jpg','apr07464.jpg','apr07500.jpg','apr07502.jpg','apr07532.jpg','apr07537.jpg','apr07549.jpg','apr07551.jpg','apr07558.jpg','apr07584.jpg','apr07595.jpg','apr07644.jpg','apr07658.jpg','apr07678.jpg','apr07696.jpg','apr07707.jpg','apr07741.jpg','apr07751.jpg','apr07786.jpg','apr07796.jpg','apr07802.jpg','apr07883.jpg','_aap7542.jpg','_aap7553.jpg','_aap7557.jpg','_aap7566.jpg','_aap7571.jpg','_aap7638.jpg','_aap7682.jpg','_aap7688.jpg','_aap7718.jpg','_aap7737.jpg','_aap7740.jpg','_aap7743.jpg','_aap7762.jpg','_aap7768.jpg','_aap7778.jpg','_aap7789.jpg','_aap7791.jpg','_aap7795.jpg','_aap7796.jpg','_aap7808.jpg','_aap7822.jpg','_aap7832.jpg','_aap7865.jpg','apr07912.jpg','apr07929.jpg','apr07950.jpg','apr07960.jpg','apr08024.jpg','apr08034.jpg','apr08061.jpg','apr08065.jpg','apr08070.jpg','apr08073.jpg','apr08081.jpg','apr08086.jpg','apr08096.jpg','apr08099.jpg','apr08114.jpg','apr08183.jpg','apr08211.jpg','apr08338.jpg','apr08340.jpg','apr08342.jpg','apr08358.jpg','apr08368.jpg','apr08379.jpg','apr08389.jpg','apr08430.jpg','apr08474.jpg','apr08475.jpg','apr08482.jpg','apr08491.jpg','apr08495.jpg','apr08509.jpg','apr08513.jpg','apr08588.jpg','apr08603.jpg','apr08606.jpg','apr08616.jpg','apr08620.jpg','apr08629.jpg','apr08631.jpg','apr08634.jpg','apr08723.jpg','apr08963.jpg','apr09004.jpg','_aap7727.jpg','apr08731.jpg','apr08734.jpg','apr08749.jpg','apr08757.jpg','apr08779.jpg','apr08787.jpg','apr08831.jpg','apr08867.jpg','apr08922.jpg'];
 const PAGE_SIZE = 24;
@@ -171,30 +161,3 @@ lb.addEventListener('touchend', e => {
   touchX = null;
 });
 
-// ===== RSVP =====
-const form = document.getElementById('rsvpForm');
-const note = document.getElementById('rsvpNote');
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-  const d = Object.fromEntries(new FormData(form));
-  // Don't pretend to accept RSVPs until the Google Form is connected
-  if (GOOGLE_FORM.action.includes('EDIT_')) {
-    note.textContent = 'Online RSVP is opening soon. Please check back in a few days.';
-    return;
-  }
-  const body = new URLSearchParams();
-  for (const key in GOOGLE_FORM.fields) body.append(GOOGLE_FORM.fields[key], d[key] || '');
-  const btn = form.querySelector('button[type=submit]');
-  btn.disabled = true;
-  note.textContent = 'Sending...';
-  try {
-    // Google Forms doesn't allow reading the response, so no-cors is used and success is assumed
-    await fetch(GOOGLE_FORM.action, { method: 'POST', mode: 'no-cors', body });
-    form.reset();
-    note.textContent = 'Thank you, ' + d.name.split(' ')[0] + '! Your RSVP has been received.';
-  } catch {
-    note.textContent = 'Something went wrong. Please check your connection and try again.';
-  } finally {
-    btn.disabled = false;
-  }
-});

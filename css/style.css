@@ -220,31 +220,6 @@ a { color: inherit; }
 .faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .faq details p { margin: 0 0 20px; color: var(--muted); }
 
-/* RSVP */
-.rsvp { position: relative; color: #fff; overflow: hidden; }
-.rsvp-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.rsvp-overlay { position: absolute; inset: 0; background: rgba(30,26,22,.72); }
-.rsvp-inner { position: relative; }
-.rsvp .eyebrow { color: #E2CB9C; }
-.rsvp .divider::after { background: #3a332c; }
-.rsvp-form {
-  background: var(--ivory); color: var(--text); text-align: left;
-  padding: clamp(24px, 5vw, 44px); margin-top: 2rem; display: grid; gap: 20px;
-}
-.rsvp-form label, .rsvp-form legend { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; display: block; }
-.rsvp-form fieldset { border: 0; padding: 0; margin: 0; }
-.rsvp-form input[type=text], .rsvp-form select, .rsvp-form textarea {
-  display: block; width: 100%; margin-top: 8px; padding: 12px 14px; min-height: 44px;
-  font: 400 1rem var(--sans); color: var(--text); background: #fff;
-  border: 1px solid rgba(47,43,40,.2); border-radius: 0;
-}
-.rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { outline: none; border-color: var(--gold); }
-.rsvp-form .radio { display: flex; align-items: center; gap: 10px; text-transform: none; letter-spacing: 0; font-size: 1rem; font-weight: 300; min-height: 44px; }
-.rsvp-form .radio input { accent-color: var(--gold); width: 18px; height: 18px; }
-.rsvp-form .btn { width: 100%; }
-.form-note { margin: 0; text-align: center; font-size: .9rem; color: var(--gold-dark); }
-.form-note:empty { display: none; }
-
 /* Footer */
 .footer { text-align: center; padding: 56px 20px; background: var(--text); color: #d8cfc2; }
 .footer .script { font-size: 2.6rem; margin: 0; color: #fff; }

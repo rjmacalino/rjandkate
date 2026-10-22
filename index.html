@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=202610221522">
+  <link rel="stylesheet" href="css/style.css?v=202610221524">
 </head>
 <body>
 
@@ -24,7 +24,6 @@
     <a href="#attire">Attire</a>
     <a href="#faq">FAQ</a>
     <a href="#gallery">Gallery</a>
-    <a href="#rsvp" class="nav-cta">RSVP</a>
   </nav>
 </header>
 
@@ -156,7 +155,6 @@
     <h2>Good to know</h2>
     <div class="divider"></div>
     <div class="faq">
-      <details class="reveal"><summary>When should I RSVP by?</summary><p>Please let us know by [EDIT: November 30, 2026].</p></details>
       <details class="reveal"><summary>Can I bring a plus one?</summary><p>[EDIT: Due to limited seating, we can only accommodate the guests named on your invitation.]</p></details>
       <details class="reveal"><summary>Are kids welcome?</summary><p>[EDIT: We love your little ones, but this will be an adults-only celebration, except for those in the entourage.]</p></details>
       <details class="reveal"><summary>Is there parking?</summary><p>[EDIT: Yes, parking is available at both the ceremony and reception venues.]</p></details>
@@ -166,40 +164,8 @@
   </div>
 </section>
 
-<!-- RSVP -->
-<section class="section rsvp" id="rsvp">
-  <img src="images/full/apr08779.jpg" alt="" class="rsvp-bg" loading="lazy">
-  <div class="rsvp-overlay"></div>
-  <div class="container narrow rsvp-inner">
-    <p class="eyebrow">RSVP</p>
-    <h2>Will you join us?</h2>
-    <div class="divider"></div>
-    <p>Kindly respond by [EDIT: November 30, 2026].</p>
-    <form class="rsvp-form" id="rsvpForm">
-      <label>Full name
-        <input type="text" name="name" required autocomplete="name">
-      </label>
-      <fieldset>
-        <legend>Will you attend?</legend>
-        <label class="radio"><input type="radio" name="attending" value="Joyfully accepts" required> Joyfully accepts</label>
-        <label class="radio"><input type="radio" name="attending" value="Regretfully declines"> Regretfully declines</label>
-      </fieldset>
-      <label>Number of guests (including you)
-        <select name="guests">
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-        </select>
-      </label>
-      <label>Message for the couple (optional)
-        <textarea name="message" rows="3"></textarea>
-      </label>
-      <button type="submit" class="btn btn-solid">Send RSVP</button>
-      <p class="form-note" id="rsvpNote" role="status"></p>
-    </form>
-  </div>
-</section>
-
 <!-- GALLERY -->
-<section class="section" id="gallery">
+<section class="section section-alt" id="gallery">
   <div class="container wide">
     <p class="eyebrow">Gallery</p>
     <h2>Moments</h2>
@@ -221,6 +187,6 @@
   <button class="lb-next" id="lbNext" aria-label="Next">&#8250;</button>
 </div>
 
-<script src="js/main.js?v=202610221522"></script>
+<script src="js/main.js?v=202610221524"></script>
 </body>
 </html>
