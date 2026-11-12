@@ -162,12 +162,15 @@ lb.addEventListener('touchend', e => {
 });
 
 
-// ===== Entourage envelopes: open once when scrolled into view =====
+// ===== Entourage envelopes: open when scrolled into view =====
 const envelopes = document.querySelectorAll('.envelope');
 if ('IntersectionObserver' in window && envelopes.length) {
   document.documentElement.classList.add('env-anim');
+  // Opens when 30% visible (or filling half the screen, for tall ones). Closes again once it
+  // drops fully below the screen (scrolling back up), so it replays on the way down.
   const envIo = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('open'); envIo.unobserve(e.target); }
-  }), { threshold: 0.3 });
+    if (e.intersectionRatio >= 0.3 || e.intersectionRect.height > window.innerHeight / 2) e.target.classList.add('open');
+    else if (!e.isIntersecting && e.boundingClientRect.top > 0) e.target.classList.remove('open');
+  }), { threshold: [0, 0.1, 0.2, 0.3] });
   envelopes.forEach(env => envIo.observe(env));
 }

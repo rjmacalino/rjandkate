@@ -267,7 +267,7 @@ a { color: inherit; }
 .env-back { position: absolute; left: 0; right: 0; bottom: 0; top: var(--flap); background: var(--env-dark); border-radius: 4px; }
 .env-flap { position: absolute; left: 0; right: 0; top: 0; height: calc(var(--flap) + 1px); background: var(--env-dark);
   clip-path: polygon(0 100%, 50% 0, 100% 100%); }
-.paper-slot { position: relative; z-index: 1; overflow: hidden; padding-top: 14px; margin-top: -14px; }
+.paper-slot { position: relative; z-index: 1; overflow: hidden; padding-top: 14px; margin-top: calc(clamp(28px, 6vw, 60px) - 14px); } /* gap shows the open envelope top */
 .paper { position: relative; margin: 0 clamp(12px, 4.5%, 36px); background: var(--ivory);
   padding: clamp(32px, 6vw, 56px) clamp(18px, 5vw, 48px) calc(var(--pocket) + 8px);
   border: 1px solid rgba(184,151,90,.45); outline: 1px solid rgba(184,151,90,.25); outline-offset: -8px;
