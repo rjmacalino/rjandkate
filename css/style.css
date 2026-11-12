@@ -235,7 +235,6 @@ a { color: inherit; }
 }
 .countdown-label { margin: 1.25rem 0 0; font-family: var(--serif); font-style: italic; font-size: clamp(1rem, .95rem + .4vw, 1.25rem); letter-spacing: .05em; }
 .countdown-label:empty { display: none; }
-.card-map { display: block; width: 100%; height: 240px; border: 1px solid rgba(184,151,90,.35); margin: 1.25rem 0 .25rem; filter: grayscale(.3) sepia(.08); }
 
 /* Entourage extras */
 .ent-heading { font-family: var(--serif); font-size: clamp(1.3rem, 1.1rem + .8vw, 1.7rem); margin: 0 0 1.25rem; }
@@ -247,3 +246,5 @@ a { color: inherit; }
 .guide img { width: 100%; height: auto; }
 .guide span { display: block; padding: 14px; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dark); }
 @media (min-width: 700px) { .guides { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.card-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 1.25rem 0 .5rem; }
+.card-photos img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
