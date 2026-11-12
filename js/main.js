@@ -161,3 +161,13 @@ lb.addEventListener('touchend', e => {
   touchX = null;
 });
 
+
+// ===== Entourage envelopes: open once when scrolled into view =====
+const envelopes = document.querySelectorAll('.envelope');
+if ('IntersectionObserver' in window && envelopes.length) {
+  document.documentElement.classList.add('env-anim');
+  const envIo = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('open'); envIo.unobserve(e.target); }
+  }), { threshold: 0.3 });
+  envelopes.forEach(env => envIo.observe(env));
+}

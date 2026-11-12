@@ -267,7 +267,8 @@ a { color: inherit; }
 .env-back { position: absolute; left: 0; right: 0; bottom: 0; top: var(--flap); background: var(--env-dark); border-radius: 4px; }
 .env-flap { position: absolute; left: 0; right: 0; top: 0; height: calc(var(--flap) + 1px); background: var(--env-dark);
   clip-path: polygon(0 100%, 50% 0, 100% 100%); }
-.paper { position: relative; z-index: 1; margin: 0 clamp(12px, 4.5%, 36px); background: var(--ivory);
+.paper-slot { position: relative; z-index: 1; overflow: hidden; padding-top: 14px; margin-top: -14px; }
+.paper { position: relative; margin: 0 clamp(12px, 4.5%, 36px); background: var(--ivory);
   padding: clamp(32px, 6vw, 56px) clamp(18px, 5vw, 48px) calc(var(--pocket) + 8px);
   border: 1px solid rgba(184,151,90,.45); outline: 1px solid rgba(184,151,90,.25); outline-offset: -8px;
   box-shadow: 0 -6px 24px -14px rgba(47,43,40,.35); }
@@ -283,3 +284,16 @@ a { color: inherit; }
   background: radial-gradient(circle at 35% 30%, #D8BE86, var(--gold) 55%, var(--gold-dark));
   box-shadow: 0 2px 6px rgba(0,0,0,.25), inset 0 0 0 3px rgba(255,255,255,.18);
   font: 500 .8rem var(--serif); color: #fff; letter-spacing: .05em; text-shadow: 0 1px 1px rgba(0,0,0,.2); }
+
+/* Envelope animation (plays once per page load): flap opens, then the paper slides up out of the pocket.
+   The hidden starting state only applies when JS has marked the page, so names never stay hidden without JS. */
+.env-anim .envelope { opacity: 1; transform: none; }
+.env-anim .env-flap { z-index: 0; transform-origin: 50% 100%; transition: transform .7s cubic-bezier(.4,0,.2,1), z-index 0s .35s; }
+.env-anim .paper { transition: transform 1.4s cubic-bezier(.22,.8,.24,1) .55s; }
+.env-anim .envelope:not(.open) .env-flap { transform: scaleY(-1); z-index: 3; background: #A3AD90; }
+.env-anim .envelope:not(.open) .paper { transform: translateY(105%); }
+.env-anim .envelope:not(.open) .env-seal { transform: translate(-50%, 50%) scale(.6); opacity: 0; }
+.env-anim .env-seal { transition: transform .5s ease 1.2s, opacity .5s ease 1.2s; }
+@media (prefers-reduced-motion: reduce) {
+  .env-anim .env-flap, .env-anim .paper, .env-anim .env-seal { transition: none; }
+}
