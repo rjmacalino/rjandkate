@@ -162,15 +162,24 @@ lb.addEventListener('touchend', e => {
 });
 
 
-// ===== Entourage envelopes: open when scrolled into view =====
+// ===== Entourage envelopes: open when scrolled to their halfway point =====
 const envelopes = document.querySelectorAll('.envelope');
-if ('IntersectionObserver' in window && envelopes.length) {
+if (envelopes.length) {
   document.documentElement.classList.add('env-anim');
-  // Opens when 30% visible (or filling half the screen, for tall ones). Closes again once it
-  // drops fully below the screen (scrolling back up), so it replays on the way down.
-  const envIo = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.intersectionRatio >= 0.3 || e.intersectionRect.height > window.innerHeight / 2) e.target.classList.add('open');
-    else if (!e.isIntersecting && e.boundingClientRect.top > 0) e.target.classList.remove('open');
-  }), { threshold: [0, 0.1, 0.2, 0.3] });
-  envelopes.forEach(env => envIo.observe(env));
+  // Opens once the envelope's middle has scrolled into view. Closes again once it drops
+  // fully below the screen (scrolling back up), so it replays on the way down.
+  let envTicking = false;
+  const checkEnvelopes = () => {
+    envTicking = false;
+    const vh = window.innerHeight;
+    envelopes.forEach(env => {
+      const r = env.getBoundingClientRect();
+      if (r.top + r.height / 2 <= vh) env.classList.add('open');
+      else if (r.top > vh) env.classList.remove('open');
+    });
+  };
+  const onEnvScroll = () => { if (!envTicking) { envTicking = true; requestAnimationFrame(checkEnvelopes); } };
+  window.addEventListener('scroll', onEnvScroll, { passive: true });
+  window.addEventListener('resize', onEnvScroll);
+  checkEnvelopes();
 }
