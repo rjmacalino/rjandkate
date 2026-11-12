@@ -162,17 +162,6 @@ a { color: inherit; }
 .card .btn { margin-top: 1rem; }
 @media (min-width: 600px) { .cards { grid-template-columns: 1fr 1fr; } .card { padding: 48px 32px; } }
 
-/* Entourage */
-.ent-group { margin-bottom: 2.5rem; }
-.ent-group h3 { font-size: .78rem; font-family: var(--sans); font-weight: 500; letter-spacing: .25em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: .75rem; }
-.ent-list { list-style: none; padding: 0; margin: 0; font-family: var(--serif); font-size: 1.2rem; line-height: 1.9; }
-.ent-cols { display: grid; grid-template-columns: 1fr; }
-.ent-pair { display: grid; gap: 0; }
-@media (min-width: 600px) {
-  .ent-cols { grid-template-columns: 1fr 1fr; column-gap: 32px; }
-  .ent-pair { grid-template-columns: 1fr 1fr; gap: 32px; }
-}
-
 /* Attire */
 .swatches { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin: 2rem 0; }
 .swatches div { display: flex; flex-direction: column; align-items: center; gap: 8px; }
@@ -236,11 +225,6 @@ a { color: inherit; }
 .countdown-label { margin: 1.25rem 0 0; font-family: var(--serif); font-style: italic; font-size: clamp(1rem, .95rem + .4vw, 1.25rem); letter-spacing: .05em; }
 .countdown-label:empty { display: none; }
 
-/* Entourage extras */
-.ent-heading { font-family: var(--serif); font-size: clamp(1.3rem, 1.1rem + .8vw, 1.7rem); margin: 0 0 1.25rem; }
-.ent-role { display: block; margin: .9rem 0 .1rem; font: 500 .68rem/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
-.ent-list li:first-child .ent-role { margin-top: 0; }
-
 /* Attire guides */
 .guides { display: grid; gap: 16px; margin: 2.5rem auto 0; max-width: 1000px; }
 .guide { display: block; text-decoration: none; background: var(--ivory); border: 1px solid rgba(184,151,90,.3); }
@@ -251,5 +235,33 @@ a { color: inherit; }
   .guides { display: flex; flex-wrap: wrap; gap: 20px; }
   .guide { flex: var(--r) 1 0; min-width: 34%; } /* 34% keeps it to two per row */
 }
-.card-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 1.25rem 0 .5rem; }
-.card-photos img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.card-photos { margin: 1.25rem 0 .5rem; }
+.card-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Entourage: framed card with script headings and ornament dividers */
+.ent-section { background: linear-gradient(180deg, var(--ivory) 0%, #F4F1E8 100%); }
+.ent-card {
+  position: relative; max-width: 860px; margin: 0 auto; background: var(--ivory);
+  padding: clamp(36px, 7vw, 72px) clamp(18px, 5vw, 64px);
+  border: 1px solid rgba(184,151,90,.55); outline: 1px solid rgba(184,151,90,.3); outline-offset: -10px;
+  box-shadow: 0 20px 50px -30px rgba(47,43,40,.25);
+}
+.ent-title {
+  display: flex; align-items: center; gap: 16px; margin: 3.25rem 0 1.75rem;
+  font: 500 .72rem var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--gold-dark);
+}
+.ent-card > .ent-title:first-child { margin-top: 0; }
+.ent-title::before, .ent-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(184,151,90,.6)); }
+.ent-title::after { background: linear-gradient(90deg, rgba(184,151,90,.6), transparent); }
+.ent-group h3 { font-family: var(--script); font-weight: 400; font-size: clamp(1.9rem, 1.6rem + 1vw, 2.4rem); color: #7E8A6B; line-height: 1.1; margin: 0 0 .6rem; }
+.ent-list { list-style: none; padding: 0; margin: 0; font-family: var(--serif); font-size: clamp(1.1rem, 1.05rem + .3vw, 1.25rem); line-height: 1.85; letter-spacing: .02em; }
+.ent-list .amp { font-family: var(--script); color: var(--gold); font-size: 1.3em; line-height: 1; }
+.ent-role { display: block; margin-top: .7rem; font: 500 .62rem/1.6 var(--sans); letter-spacing: .25em; text-transform: uppercase; color: var(--gold-dark); }
+.ent-list li:first-child .ent-role { margin-top: 0; }
+.ent-pair, .ent-sponsors { display: grid; gap: 2rem; }
+@media (min-width: 640px) {
+  .ent-pair { grid-template-columns: 1fr 1fr; gap: 0; }
+  .ent-pair > .ent-group + .ent-group { border-left: 1px solid rgba(184,151,90,.35); }
+  .ent-sponsors { grid-template-columns: 1fr 1fr; gap: 2.5rem 0; }
+  .ent-sponsors > .ent-group:nth-child(even) { border-left: 1px solid rgba(184,151,90,.35); }
+}
