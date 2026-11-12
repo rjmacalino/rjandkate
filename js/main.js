@@ -162,6 +162,63 @@ lb.addEventListener('touchend', e => {
 });
 
 
+// ===== Envelope sound: paper crinkle + slide, synthesized with Web Audio (no audio files) =====
+// On by default, but browsers only allow sound after the visitor's first tap/click/key press.
+const soundBtn = document.getElementById('soundToggle');
+let soundOn = true;
+try { soundOn = localStorage.getItem('envSound') !== 'off'; } catch (e) {}
+let audioCtx = null, noiseBuf = null;
+function initAudio() {
+  if (audioCtx) return;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return;
+  audioCtx = new AC();
+  noiseBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 1.5, audioCtx.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+function unlockAudio() {
+  initAudio();
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, unlockAudio, { passive: true }));
+// One filtered noise burst: start time, length, filter sweep and loudness
+function rustle(at, dur, f1, f2, vol) {
+  const src = audioCtx.createBufferSource();
+  src.buffer = noiseBuf;
+  const bp = audioCtx.createBiquadFilter();
+  bp.type = 'bandpass'; bp.Q.value = 0.9;
+  bp.frequency.setValueAtTime(f1, at);
+  bp.frequency.exponentialRampToValueAtTime(f2, at + dur);
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(0.0001, at);
+  g.gain.exponentialRampToValueAtTime(vol, at + Math.min(0.04, dur / 4));
+  g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+  src.connect(bp).connect(g).connect(audioCtx.destination);
+  src.start(at, Math.random() * 0.4, dur);
+}
+function playEnvelopeSound() {
+  if (!soundOn || !audioCtx || audioCtx.state !== 'running') return;
+  const t = audioCtx.currentTime;
+  rustle(t, 0.18, 3200, 1800, 0.10);        // flap unsticks
+  rustle(t + 0.12, 0.30, 2200, 1400, 0.07); // flap folds back
+  rustle(t + 0.55, 1.10, 900, 2600, 0.05);  // paper slides out
+}
+function renderSoundBtn() {
+  if (!soundBtn) return;
+  soundBtn.classList.toggle('off', !soundOn);
+  soundBtn.setAttribute('aria-pressed', String(soundOn));
+  soundBtn.setAttribute('aria-label', soundOn ? 'Mute envelope sound' : 'Turn on envelope sound');
+}
+if (soundBtn) {
+  soundBtn.addEventListener('click', () => {
+    soundOn = !soundOn;
+    try { localStorage.setItem('envSound', soundOn ? 'on' : 'off'); } catch (e) {}
+    renderSoundBtn();
+  });
+  renderSoundBtn();
+}
+
 // ===== Entourage envelopes: open once fully scrolled into view =====
 const envelopes = document.querySelectorAll('.envelope');
 if (envelopes.length) {
@@ -172,11 +229,14 @@ if (envelopes.length) {
   const checkEnvelopes = () => {
     envTicking = false;
     const vh = window.innerHeight;
+    let opened = false;
     envelopes.forEach(env => {
       const r = env.getBoundingClientRect();
-      if (r.bottom <= vh) env.classList.add('open');
-      else if (r.top > vh) env.classList.remove('open');
+      if (r.bottom <= vh) {
+        if (!env.classList.contains('open')) { env.classList.add('open'); opened = true; }
+      } else if (r.top > vh) env.classList.remove('open');
     });
+    if (opened) playEnvelopeSound(); // one sound even if several open at once
   };
   const onEnvScroll = () => { if (!envTicking) { envTicking = true; requestAnimationFrame(checkEnvelopes); } };
   window.addEventListener('scroll', onEnvScroll, { passive: true });
