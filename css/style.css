@@ -303,6 +303,6 @@ a { color: inherit; }
 .env-back { overflow: hidden; }
 .env-back::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 18px;
   background: linear-gradient(rgba(47,43,40,.22), rgba(47,43,40,0)); }
-.env-back::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(255,255,255,.35); }
+.env-back::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: rgba(60,66,48,.45); box-shadow: 0 2px 0 rgba(255,255,255,.4); }
 .env-flap { background: linear-gradient(to top, #8E997B 0%, var(--env-dark) 22%, #A1AB8E 100%); }
 .env-anim .envelope:not(.open) .env-flap { background: linear-gradient(to top, #8E997B 0%, #A3AD90 25%, #ADB69B 100%); }
