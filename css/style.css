@@ -238,13 +238,18 @@ a { color: inherit; }
 
 /* Entourage extras */
 .ent-heading { font-family: var(--serif); font-size: clamp(1.3rem, 1.1rem + .8vw, 1.7rem); margin: 0 0 1.25rem; }
-.ent-role { display: inline-block; min-width: 4.5em; margin-right: .4em; font: 500 .68rem var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); vertical-align: .15em; }
+.ent-role { display: block; margin: .9rem 0 .1rem; font: 500 .68rem/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
+.ent-list li:first-child .ent-role { margin-top: 0; }
 
 /* Attire guides */
-.guides { display: grid; gap: 16px; margin-top: 2.5rem; }
+.guides { display: grid; gap: 16px; margin: 2.5rem auto 0; max-width: 1000px; }
 .guide { display: block; text-decoration: none; background: var(--ivory); border: 1px solid rgba(184,151,90,.3); }
 .guide img { width: 100%; height: auto; }
 .guide span { display: block; padding: 14px; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dark); }
-@media (min-width: 700px) { .guides { grid-template-columns: 1fr 1fr; gap: 24px; } }
+/* Desktop: rows of equal height, each guide as wide as its shape needs (no white gaps) */
+@media (min-width: 700px) {
+  .guides { display: flex; flex-wrap: wrap; gap: 20px; }
+  .guide { flex: var(--r) 1 0; min-width: 34%; } /* 34% keeps it to two per row */
+}
 .card-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 1.25rem 0 .5rem; }
 .card-photos img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
