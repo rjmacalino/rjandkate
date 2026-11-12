@@ -306,3 +306,12 @@ a { color: inherit; }
 .env-back::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: rgba(60,66,48,.45); box-shadow: 0 2px 0 rgba(255,255,255,.4); }
 .env-flap { background: linear-gradient(to top, #8E997B 0%, var(--env-dark) 22%, #A1AB8E 100%); }
 .env-anim .envelope:not(.open) .env-flap { background: linear-gradient(to top, #8E997B 0%, #A3AD90 25%, #ADB69B 100%); }
+
+/* Smaller envelopes (one secondary-sponsor pair each), two per row on wider screens */
+.env-row { display: grid; gap: clamp(56px, 9vw, 96px); }
+.envelope.env-small { --pocket: clamp(90px, 13vw, 120px); --flap: clamp(70px, 11vw, 100px); }
+.env-small .paper { padding-left: clamp(14px, 3vw, 28px); padding-right: clamp(14px, 3vw, 28px); }
+.env-small .ent-title { gap: 10px; font-size: .64rem; letter-spacing: .26em; }
+@media (min-width: 720px) {
+  .env-row { grid-template-columns: 1fr 1fr; gap: 72px 32px; }
+}
