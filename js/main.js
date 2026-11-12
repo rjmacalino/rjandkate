@@ -162,11 +162,11 @@ lb.addEventListener('touchend', e => {
 });
 
 
-// ===== Entourage envelopes: open once fully scrolled into view =====
+// ===== Entourage envelopes: open when scrolled to their halfway point =====
 const envelopes = document.querySelectorAll('.envelope');
 if (envelopes.length) {
   document.documentElement.classList.add('env-anim');
-  // Opens once the bottom of the envelope is on screen. Closes again once it drops
+  // Opens once the envelope's middle has scrolled into view. Closes again once it drops
   // fully below the screen (scrolling back up), so it replays on the way down.
   let envTicking = false;
   const checkEnvelopes = () => {
@@ -174,7 +174,7 @@ if (envelopes.length) {
     const vh = window.innerHeight;
     envelopes.forEach(env => {
       const r = env.getBoundingClientRect();
-      if (r.bottom <= vh) env.classList.add('open');
+      if (r.top + r.height / 2 <= vh) env.classList.add('open');
       else if (r.top > vh) env.classList.remove('open');
     });
   };
