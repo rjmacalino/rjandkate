@@ -98,7 +98,11 @@ function addPhoto(idx) {
   const b = document.createElement('button');
   b.setAttribute('aria-label', 'Open photo ' + (idx + 1));
   const h = Math.round(600 * ratio(f));
-  b.innerHTML = '<img src="images/thumb/' + f + '" alt="RJ and Kate" width="600" height="' + h + '" loading="lazy">';
+  b.innerHTML = '<img src="images/thumb/' + f + '" alt="RJ and Kate" width="600" height="' + h + '" loading="lazy" decoding="async">';
+  // Fade each photo in once it has loaded instead of letting it pop in
+  const img = b.firstChild;
+  const reveal = () => img.classList.add('loaded');
+  if (img.complete) reveal(); else { img.addEventListener('load', reveal); img.addEventListener('error', reveal); }
   b.addEventListener('click', () => openLb(idx));
   cols[c].appendChild(b);
   colHeights[c] += ratio(f);
